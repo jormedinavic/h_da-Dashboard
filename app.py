@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 df = pd.read_excel('EUt.xlsx')
 
-df = df.drop(columns=["Name", "Item"])
+#df = df.drop(columns=["Name", "Item"])
 
 #df.columns = df.columns.str.replace("\n", " ", regex=False)
 
