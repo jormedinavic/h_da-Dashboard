@@ -15,7 +15,7 @@ df = pd.read_excel('EUt.xlsx')
 
 # Dashboard Title
 # -----------------------------
-st.title("h_da Zahlen")
+#st.title("h_da Zahlen")
 
 
 # =========================================================
