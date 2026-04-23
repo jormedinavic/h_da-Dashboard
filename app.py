@@ -54,6 +54,7 @@ with col4:
     counts = df["Accelerate  Beteiligung"].value_counts()
     fig, ax = plt.subplots(figsize=(2,1))
     ax.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
+    ax.legend(fontsize=7)
     st.pyplot(fig)
 
 with col5:
@@ -61,6 +62,7 @@ with col5:
     counts_gender = df["Gender"].value_counts()
     fig, ax = plt.subplots(figsize=(2,1))
     ax.pie(counts_gender, labels=counts_gender.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
+    ax.legend(fontsize=7)
     st.pyplot(fig)
 
 # ============================
@@ -94,7 +96,7 @@ st.subheader("EUt+/h_da Clusters")
 cluster_counts = df["Cluster"].value_counts()
 
 # Donut-Chart erstellen
-fig_cluster, ax = plt.subplots(figsize=(7, 7))
+fig_cluster, ax = plt.subplots(figsize=(5, 5))
 
 # Donut zeichnen (ohne Prozent)
 wedges, texts = ax.pie(
