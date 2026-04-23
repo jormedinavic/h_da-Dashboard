@@ -52,14 +52,14 @@ col4, col5 = st.columns(2)
 with col4:
     st.subheader("Accelerate Beteiligung")
     counts = df["Accelerate  Beteiligung"].value_counts()
-    fig, ax = plt.subplots(figsize=(6,6))
+    fig, ax = plt.subplots(figsize=(4,3))
     ax.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
     st.pyplot(fig)
 
 with col5:
     st.subheader("Gender Beteiligung")
     counts_gender = df["Gender"].value_counts()
-    fig, ax = plt.subplots(figsize=(6,6))
+    fig, ax = plt.subplots(figsize=(4,3))
     ax.pie(counts_gender, labels=counts_gender.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
     st.pyplot(fig)
 
@@ -80,7 +80,7 @@ with col6:
 with col7:
     st.subheader("Stakeholder")
     counts_Ziel = df["Zielgruppe"].value_counts()
-    fig, ax = plt.subplots(figsize=(8,6))
+    fig, ax = plt.subplots(figsize=(7,5))
     ax.bar(counts_Ziel.index, counts_Ziel.values, color="#0A3D91")
     plt.xticks(rotation=45, ha="right")
     st.pyplot(fig)
