@@ -69,7 +69,7 @@ with col5:
 col6, col7 = st.columns(2)
 
 with col6:
-    st.subheader("Beteiligung pro Einrichtung (≥3)")
+    st.subheader("Beteiligung pro Einrichtung")
     counts_Einrichtung = df["h_da Einrichtung"].value_counts()
     counts_2 = counts_Einrichtung[counts_Einrichtung >= 3].sort_values(ascending=True)
     fig, ax = plt.subplots(figsize=(8,6))
@@ -88,43 +88,32 @@ with col7:
 # ============================
 # Cluster Donut (full width)
 # ============================
-st.subheader("EUt+/h_da Cluster Beteiligung")
+st.subheader("EUt+/h_da Clusters")
 
+# Cluster zählen
 cluster_counts = df["Cluster"].value_counts()
-total = cluster_counts.sum()
 
-fig_cluster, ax = plt.subplots(figsize=(8,8))
+# Donut-Chart erstellen
+fig_cluster, ax = plt.subplots(figsize=(7, 7))
 
-# Donut
-wedges, _ = ax.pie(
+# Donut zeichnen (ohne Prozent)
+wedges, texts = ax.pie(
     cluster_counts,
     startangle=90,
-    wedgeprops={"width": 0.4},
-    labels=None
+    wedgeprops={"width": 0.4}
 )
 
-# Zahlen im Ring
-angles = np.cumsum(cluster_counts) - cluster_counts / 2
-r = 0.7
+# Titel
+#ax.set_title("h_da Cluster Beteiligung")
+ax.axis("equal")
 
-for angle, value in zip(angles, cluster_counts):
-    x = r * np.cos(np.deg2rad(angle))
-    y = r * np.sin(np.deg2rad(angle))
-    ax.text(x, y, str(value), ha='center', va='center', fontsize=14, fontweight='bold')
-
-# Legende mit Prozent
-legend_labels = [
-    f"{cluster} ({count/total*100:.1f}%)"
-    for cluster, count in cluster_counts.items()
-]
-
+# Legende rechts mit absoluten Zahlen
 ax.legend(
     wedges,
-    legend_labels,
-    title="Cluster",
+    [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
+    title="Cluster & Teilnehmende",
     loc="center left",
     bbox_to_anchor=(1, 0.5)
 )
 
-ax.axis("equal")
 st.pyplot(fig_cluster)
