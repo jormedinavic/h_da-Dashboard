@@ -116,7 +116,8 @@ ax.legend(
     title="Cluster & Teilnehmende",
     loc="center left",
     bbox_to_anchor=(1, 0.5)
-    ax.legend(fontsize=6, title_fontsize=7)
+    fontsize=7,
+    title_fontsize=8 
 )
 
 st.pyplot(fig_cluster)
