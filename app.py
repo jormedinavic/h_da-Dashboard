@@ -110,3 +110,39 @@ plt.xticks(rotation=45, ha="right")
 st.pyplot(fig4)
 
 
+
+# =========================================================
+# 4) RING: Cluster
+# =========================================================
+st.subheader("EUt+/h_da Clusters")
+
+# Cluster zählen
+cluster_counts = df["Cluster"].value_counts()
+
+# Donut-Chart erstellen
+fig5, ax = plt.subplots(figsize=(7, 7))
+
+# Donut zeichnen (ohne Prozent)
+wedges, texts = ax.pie(
+    cluster_counts,
+    startangle=90,
+    wedgeprops={"width": 0.4}
+)
+
+# Titel
+ax.set_title("h_da Cluster Beteiligung")
+ax.axis("equal")
+
+# Legende rechts mit absoluten Zahlen
+ax.legend(
+    wedges,
+    [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
+    title="Cluster",
+    loc="center left",
+    bbox_to_anchor=(1, 0.5)
+)
+
+st.pyplot(fig5)
+
+
+
