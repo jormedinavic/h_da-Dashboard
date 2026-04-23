@@ -130,14 +130,14 @@ wedges, texts = ax.pie(
 )
 
 # Titel
-ax.set_title("h_da Cluster Beteiligung")
+#ax.set_title("h_da Cluster Beteiligung")
 ax.axis("equal")
 
 # Legende rechts mit absoluten Zahlen
 ax.legend(
     wedges,
     [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
-    title="Cluster",
+    title="Cluster & Teilnehmende",
     loc="center left",
     bbox_to_anchor=(1, 0.5)
 )
