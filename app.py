@@ -96,7 +96,7 @@ st.subheader("EUt+/h_da Clusters")
 cluster_counts = df["Cluster"].value_counts()
 
 # Donut-Chart erstellen
-fig_cluster, ax = plt.subplots(figsize=(3, 3))
+fig_cluster, ax = plt.subplots(figsize=(2, 2))
 
 # Donut zeichnen (ohne Prozent)
 wedges, texts = ax.pie(
@@ -116,8 +116,8 @@ ax.legend(
     title="Cluster & Teilnehmende",
     loc="center left",
     bbox_to_anchor=(1, 0.5),
-    fontsize=7,
-    title_fontsize=8 
+    fontsize=6,
+    title_fontsize=7 
 )
 
 st.pyplot(fig_cluster)
