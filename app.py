@@ -115,7 +115,7 @@ ax.legend(
     [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
     title="Cluster & Teilnehmende",
     loc="center left",
-    bbox_to_anchor=(1, 0.5)
+    bbox_to_anchor=(1, 0.5),
     fontsize=7,
     title_fontsize=8 
 )
