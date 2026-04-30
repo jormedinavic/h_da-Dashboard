@@ -3,6 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update({
+    "font.size": 12,
+    "axes.titlesize": 18,
+    "axes.labelsize": 14,
+    "legend.fontsize": 10,
+})
+
+
 st.set_page_config(layout="wide")
 
 # ============================
