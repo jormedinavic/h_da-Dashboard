@@ -58,7 +58,7 @@ with p2:
 # =========================================================
 # ROW 3 — BALKEN (3 Spalten)
 # =========================================================
-b1, b2, b3 = st.columns(3)
+b1, b2 = st.columns(2)
 
 with b1:
     st.subheader("Einrichtungen h_da")
@@ -77,7 +77,9 @@ with b2:
     plt.xticks(rotation=45, ha="right")
     st.pyplot(fig5b)
 
-with b3:
+
+i1, i2 = st.columns(2)
+with i1:
     st.subheader("EUt+/h_da Clusters")
     cluster_counts = df["Cluster"].value_counts()
     fig_cluster, axc = plt.subplots(figsize=(5,5))
