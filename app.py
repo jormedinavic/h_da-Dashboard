@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 st.set_page_config(layout="wide")
-st.set_option("deprecation.showPyplotGlobalUse", False)
 
 df = pd.read_excel('EUt.xlsx')
 
@@ -29,7 +28,6 @@ with col2:
     ax6.axis("off")
     st.pyplot(fig6, use_container_width=False)
 
-
 # =========================================================
 # ROW 2 — PIE CHARTS (kompakt)
 # =========================================================
@@ -53,7 +51,6 @@ with p2:
     ax2.axis("equal")
     st.pyplot(fig2, use_container_width=False)
 
-
 # =========================================================
 # ROW 3 — BALKEN (kompakt)
 # =========================================================
@@ -75,7 +72,6 @@ with b2:
     ax5b.bar(counts_Ziel.index, counts_Ziel.values, color="#0A3D91")
     plt.xticks(rotation=45, ha="right")
     st.pyplot(fig5b, use_container_width=False)
-
 
 # =========================================================
 # ROW 4 — CLUSTER DONUT (kompakt)
