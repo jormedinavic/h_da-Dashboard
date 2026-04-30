@@ -1,93 +1,106 @@
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
 st.set_page_config(layout="wide")
 
-# -----------------------------
-# Daten laden
-# -----------------------------
-df = pd.read_excel("EUt.xlsx")
-df.columns = df.columns.str.strip()
+df = pd.read_excel('EUt.xlsx')
 
-# -----------------------------
-# Titel
-# -----------------------------
-st.markdown("<h1 style='text-align:center;'>EUt+ / h_da Dashboard</h1>", unsafe_allow_html=True)
-st.markdown("---")
+# =========================================================
+# ROW 1 — KPIs (3 Spalten)
+# =========================================================
+col1, col2, col3 = st.columns(3)
 
-# -----------------------------
-# KPI-ROW (3 Spalten)
-# -----------------------------
-k1, k2, k3 = st.columns(3)
+with col1:
+    st.subheader("Gesamtzahl Beteiligte h-da")
+    total = len(df)
+    fig5, ax5 = plt.subplots(figsize=(4,3))
+    ax5.text(0.5, 0.5, f"{total:,}", fontsize=50, ha='center', va='center', color="#0A3D91")
+    ax5.axis("off")
+    st.pyplot(fig5)
 
-def kpi_box(value, label):
-    st.markdown(
-        f"""
-        <div style="
-            background-color:#f0f2f6;
-            padding:20px;
-            border-radius:10px;
-            text-align:center;
-            box-shadow:0 0 4px rgba(0,0,0,0.1);
-        ">
-            <div style="font-size:42px; font-weight:700;">{value}</div>
-            <div style="font-size:18px; color:#555;">{label}</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-with k1:
-    kpi_box(len(df), "Gesamtzahl Beteiligte")
-
-with k2:
+with col2:
+    st.subheader("Accelerate Teilnehmende")
     accelerate_count = (df["Accelerate  Beteiligung"].astype(str).str.lower() == "ja").sum()
-    kpi_box(accelerate_count, "Accelerate Teilnehmende")
+    fig6, ax6 = plt.subplots(figsize=(4,3))
+    ax6.text(0.5, 0.5, f"{accelerate_count:,}", fontsize=50, ha='center', va='center', color="#0A3D91")
+    ax6.axis("off")
+    st.pyplot(fig6)
 
-with k3:
+with col3:
+    st.subheader("Zielgruppen")
     zielgruppen_count = df["Zielgruppe"].nunique()
-    kpi_box(zielgruppen_count, "Zielgruppen")
+    fig7, ax7 = plt.subplots(figsize=(4,3))
+    ax7.text(0.5, 0.5, f"{zielgruppen_count:,}", fontsize=50, ha='center', va='center', color="#0A3D91")
+    ax7.axis("off")
+    st.pyplot(fig7)
 
-st.markdown("---")
-
-# -----------------------------
-# PIE-ROW (3 Spalten)
-# -----------------------------
+# =========================================================
+# ROW 2 — PIE CHARTS (3 Spalten)
+# =========================================================
 p1, p2, p3 = st.columns(3)
 
 with p1:
-    st.subheader("Accelerate Beteiligung")
-    counts_acc = df["Accelerate  Beteiligung"].value_counts()
-    fig, ax = plt.subplots(figsize=(4,4))
-    ax.pie(counts_acc.values, labels=counts_acc.index, autopct="%1.1f%%", startangle=90)
-    ax.axis("equal")
-    st.pyplot(fig)
+    st.subheader("h_da Accelerate Teilnehmende")
+    counts = df["Accelerate  Beteiligung"].value_counts()
+    fig1, ax1 = plt.subplots(figsize=(5,5))
+    ax1.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90,
+            colors=["#0A3D91", "#6EC6FF"])
+    ax1.axis("equal")
+    st.pyplot(fig1)
 
 with p2:
     st.subheader("Gender Beteiligung")
     counts_gender = df["Gender"].value_counts()
-    fig, ax = plt.subplots(figsize=(4,4))
-    ax.pie(counts_gender.values, labels=counts_gender.index, autopct="%1.1f%%", startangle=90)
-    ax.axis("equal")
-    st.pyplot(fig)
+    fig2, ax2 = plt.subplots(figsize=(5,5))
+    ax2.pie(counts_gender, labels=counts_gender.index, autopct="%1.1f%%", startangle=90,
+            colors=["#0A3D91", "#6EC6FF"])
+    ax2.axis("equal")
+    st.pyplot(fig2)
 
 with p3:
     st.subheader("h_da Einrichtungen")
     einr_counts = df["h_da Einrichtung"].value_counts()
-    fig, ax = plt.subplots(figsize=(4,4))
-    ax.pie(einr_counts.values, labels=einr_counts.index, autopct="%1.1f%%", startangle=90)
-    ax.axis("equal")
-    st.pyplot(fig)
+    fig3, ax3 = plt.subplots(figsize=(5,5))
+    ax3.pie(einr_counts, labels=einr_counts.index, autopct="%1.1f%%", startangle=90,
+            colors=["#0A3D91", "#6EC6FF"])
+    ax3.axis("equal")
+    st.pyplot(fig3)
 
-st.markdown("---")
+# =========================================================
+# ROW 3 — BALKEN (3 Spalten)
+# =========================================================
+b1, b2, b3 = st.columns(3)
 
-# -----------------------------
-# BALKEN (volle Breite)
-# -----------------------------
-st.subheader("Beteiligung pro Einrichtung")
-counts_einr = df["h_da Einrichtung"].value_counts()
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.barh(counts_einr.index, counts_einr.values, color="#4a90e2")
-ax.set_xlabel("Anzahl")
-st.pyplot(fig)
+with b1:
+    st.subheader("Einrichtungen (>= 3)")
+    counts_Einrichtung = df["h_da Einrichtung"].value_counts()
+    counts_2 = counts_Einrichtung[counts_Einrichtung >= 3].sort_values(ascending=True)
+    fig4, ax4 = plt.subplots(figsize=(5,5))
+    ax4.barh(counts_2.index, counts_2.values, color="#6EC6FF")
+    ax4.set_xlabel("Anzahl Personen")
+    st.pyplot(fig4)
+
+with b2:
+    st.subheader("Steakholder")
+    counts_Ziel = df["Zielgruppe"].value_counts()
+    fig5b, ax5b = plt.subplots(figsize=(5,5))
+    ax5b.bar(counts_Ziel.index, counts_Ziel.values, color="#0A3D91")
+    plt.xticks(rotation=45, ha="right")
+    st.pyplot(fig5b)
+
+with b3:
+    st.subheader("EUt+/h_da Clusters")
+    cluster_counts = df["Cluster"].value_counts()
+    fig_cluster, axc = plt.subplots(figsize=(5,5))
+    wedges, texts = axc.pie(cluster_counts, startangle=90, wedgeprops={"width": 0.4})
+    axc.axis("equal")
+    axc.legend(
+        wedges,
+        [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
+        title="Cluster & Teilnehmende",
+        loc="center left",
+        bbox_to_anchor=(1, 0.5)
+    )
+    st.pyplot(fig_cluster)
