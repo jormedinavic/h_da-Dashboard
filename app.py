@@ -58,6 +58,8 @@ with col4:
     # kleine Legende oben rechts entfernen
     if ax.get_legend():
        ax.get_legend().remove()
+
+    ax.set_aspect("equal")
     st.pyplot(fig)
 
 with col5:
@@ -69,6 +71,7 @@ with col5:
     # kleine Legende oben rechts entfernen
     if ax.get_legend():
        ax.get_legend().remove()
+    ax.set_aspect("equal")
     st.pyplot(fig)
 
 # ============================
