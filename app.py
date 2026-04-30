@@ -52,22 +52,58 @@ col4, col5 = st.columns(2)
 with col4:
     st.subheader("Accelerate Beteiligung")
     counts = df["Accelerate  Beteiligung"].value_counts()
-    fig, ax = plt.subplots(figsize=(3,2))
-    ax.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
-    ax.legend(fontsize=1, loc="upper right", bbox_to_anchor=(1.3, 1))
-    # kleine Legende oben rechts entfernen
-    
+
+    fig, ax = plt.subplots(figsize=(4,4))
+    wedges, texts, autotexts = ax.pie(
+        counts,
+        labels=None,  # verhindert Streamlit-Legende
+        autopct="%1.1f%%",
+        startangle=90,
+        colors=["#0A3D91", "#6EC6FF"]
+    )
+
+    ax.set_aspect("equal")  # wichtig für runde Darstellung
+
+    ax.legend(
+        wedges,
+        counts.index,
+        title="Antworten",
+        loc="center left",
+        bbox_to_anchor=(1, 0.5),
+        fontsize=8,
+        title_fontsize=9
+    )
+
     st.pyplot(fig)
+
 
 with col5:
     st.subheader("Gender Beteiligung")
     counts_gender = df["Gender"].value_counts()
-    fig, ax = plt.subplots(figsize=(3,2))
-    ax.pie(counts_gender, labels=counts_gender.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
-    ax.legend(fontsize=1, loc="upper right", bbox_to_anchor=(1.3, 1))
-    # kleine Legende oben rechts entfernen
-  
+
+    fig, ax = plt.subplots(figsize=(4,4))
+    wedges, texts, autotexts = ax.pie(
+        counts_gender,
+        labels=None,  # verhindert Streamlit-Legende
+        autopct="%1.1f%%",
+        startangle=90,
+        colors=["#0A3D91", "#6EC6FF"]
+    )
+
+    ax.set_aspect("equal")
+
+    ax.legend(
+        wedges,
+        counts_gender.index,
+        title="Gender",
+        loc="center left",
+        bbox_to_anchor=(1, 0.5),
+        fontsize=8,
+        title_fontsize=9
+    )
+
     st.pyplot(fig)
+
 
 # ============================
 # Einrichtung & Zielgruppe (2 columns)
