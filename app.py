@@ -10,7 +10,7 @@ df = pd.read_excel('EUt.xlsx')
 # =========================================================
 # ROW 1 — KPIs (3 Spalten)
 # =========================================================
-col1, col2 = st.columns(3)
+col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Gesamtzahl Beteiligte h-da")
@@ -33,7 +33,7 @@ with col2:
 # =========================================================
 # ROW 2 — PIE CHARTS (3 Spalten)
 # =========================================================
-p1, p2 = st.columns(3)
+p1, p2 = st.columns(2)
 
 with p1:
     st.subheader("h_da Accelerate Teilnehmende")
