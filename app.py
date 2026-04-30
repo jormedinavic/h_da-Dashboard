@@ -1,102 +1,138 @@
+
+
+
+
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-st.set_page_config(layout="wide")
+df = pd.read_excel('EUt.xlsx')
 
-# ============================
-# Load Data
-# ============================
-df = pd.read_excel("EUt.xlsx")
+#df = df.drop(columns=["Name", "Item"])
 
-# ============================
+#df.columns = df.columns.str.replace("\n", " ", regex=False)
+
 # Dashboard Title
-# ============================
-st.title("EUt+ / h_da Dashboard")
+# -----------------------------
+#st.title("h_da Zahlen")
 
-# ============================
-# KPIs (3 columns)
-# ============================
-col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.subheader("Gesamtzahl Beteiligte")
-    total = len(df)
-    fig, ax = plt.subplots(figsize=(4,3))
-    ax.text(0.5, 0.5, f"{total:,}", fontsize=50, ha='center', va='center', color="#0A3D91")
-    ax.axis("off")
-    st.pyplot(fig)
+# =========================================================
+# 5) KPI: Gesamtzahl Beteiligte
+# =========================================================
+st.subheader("Gesamtzahl Beteiligte h-da")
 
-with col2:
-    st.subheader("Accelerate Teilnehmende")
-    accelerate_count = (df["Accelerate  Beteiligung"].astype(str).str.lower() == "ja").sum()
-    fig, ax = plt.subplots(figsize=(4,3))
-    ax.text(0.5, 0.5, f"{accelerate_count:,}", fontsize=50, ha='center', va='center', color="#0A3D91")
-    ax.axis("off")
-    st.pyplot(fig)
+total = len(df)
 
-with col3:
-    st.subheader("Anzahl Cluster")
-    cluster_count = df["Cluster"].nunique()
-    fig, ax = plt.subplots(figsize=(4,3))
-    ax.text(0.5, 0.5, f"{cluster_count}", fontsize=50, ha='center', va='center', color="#0A3D91")
-    ax.axis("off")
-    st.pyplot(fig)
+fig5, ax5 = plt.subplots(figsize=(6,4))
+ax5.text(0.5, 0.5, f"{total:,}", fontsize=60, ha='center', va='center', color="#0A3D91")
+#ax5.text(0.5, 0.2, "h_da Teilnehmende Insgesamt", fontsize=18, ha='center', va='center')
+ax5.axis("off")
+st.pyplot(fig5)
 
-# ============================
-# Accelerate & Gender (2 columns)
-# ============================
-col4, col5 = st.columns(2)
+# =========================================================
+# 6) KPI: Accelerate Teilnehmende
+# =========================================================
+st.subheader("Accelerate Teilnehmende")
 
-with col4:
-    st.subheader("Accelerate Beteiligung")
-    counts = df["Accelerate  Beteiligung"].value_counts()
-    fig, ax = plt.subplots(figsize=(3,2))
-    ax.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
-    ax.legend(fontsize=1, loc="upper right", bbox_to_anchor=(1.3, 1))
-    st.pyplot(fig)
+accelerate_count = (df["Accelerate  Beteiligung"].astype(str).str.lower() == "ja").sum()
 
-with col5:
-    st.subheader("Gender Beteiligung")
-    counts_gender = df["Gender"].value_counts()
-    fig, ax = plt.subplots(figsize=(3,2))
-    ax.pie(counts_gender, labels=counts_gender.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
-    ax.legend(fontsize=1, loc="upper right", bbox_to_anchor=(1.3, 1))
-    st.pyplot(fig)
+fig6, ax6 = plt.subplots(figsize=(6,4))
+ax6.text(0.5, 0.5, f"{accelerate_count:,}", fontsize=60, ha='center', va='center', color="#0A3D91")
+#ax6.text(0.5, 0.2, "Accelerate Teilnehmende", fontsize=18, ha='center', va='center')
+ax6.axis("off")
+st.pyplot(fig6)
 
-# ============================
-# Einrichtung & Zielgruppe (2 columns)
-# ============================
-col6, col7 = st.columns(2)
 
-with col6:
-    st.subheader("Beteiligung pro Einrichtung")
-    counts_Einrichtung = df["h_da Einrichtung"].value_counts()
-    counts_2 = counts_Einrichtung[counts_Einrichtung >= 3].sort_values(ascending=True)
-    fig, ax = plt.subplots(figsize=(8,6))
-    ax.barh(counts_2.index, counts_2.values, color="#6EC6FF")
-    ax.set_xlabel("Anzahl Personen")
-    st.pyplot(fig)
+# =========================================================
+# 1) PIE: Accelerate Beteiligung
+# =========================================================
+st.subheader("h_da Accelerate Teilnehmende")
 
-with col7:
-    st.subheader("Stakeholder")
-    counts_Ziel = df["Zielgruppe"].value_counts()
-    fig, ax = plt.subplots(figsize=(6,4))
-    ax.bar(counts_Ziel.index, counts_Ziel.values, color="#0A3D91")
-    plt.xticks(rotation=45, ha="right")
-    st.pyplot(fig)
+counts = df["Accelerate  Beteiligung"].value_counts()
 
-# ============================
-# Cluster Donut (full width)
-# ============================
+fig1, ax1 = plt.subplots(figsize=(6,6))
+ax1.pie(
+    counts,
+    labels=counts.index,
+    autopct="%1.1f%%",
+    startangle=90,
+    colors=["#0A3D91", "#6EC6FF"]
+)
+
+# kleine Legende oben rechts entfernen
+if ax1.get_legend():
+    ax1.get_legend().remove()
+    
+#ax1.set_title("Accelerate Beteiligung")
+st.pyplot(fig1)
+
+# =========================================================
+# 2) PIE: Gender
+# =========================================================
+st.subheader("Gender Beteiligung")
+
+counts_gender = df["Gender"].value_counts()
+
+fig2, ax2 = plt.subplots(figsize=(6,6))
+ax2.pie(
+    counts_gender,
+    labels=counts_gender.index,
+    autopct="%1.1f%%",
+    startangle=90,
+    colors=["#0A3D91", "#6EC6FF"]
+)
+
+# kleine Legende oben rechts entfernen
+if ax2.get_legend():
+    ax2.get_legend().remove()
+    
+#ax2.set_title("Gender")
+st.pyplot(fig2)
+
+
+# =========================================================
+# 3) BAR: Einrichtung (>= 3)
+# =========================================================
+st.subheader("Beteiligung pro Einrichtung")
+
+counts_Einrichtung = df["h_da Einrichtung"].value_counts()
+counts_2 = counts_Einrichtung[counts_Einrichtung >= 3]
+counts_2 = counts_2.sort_values(ascending=True)
+
+fig3, ax3 = plt.subplots(figsize=(10, 6))
+ax3.barh(counts_2.index, counts_2.values, color="#6EC6FF")
+ax3.set_xlabel("Anzahl Personen")
+#ax3.set_title("Beteiligung pro Einrichtung")
+st.pyplot(fig3)
+
+# =========================================================
+# 4) BAR: Zielgruppe
+# =========================================================
+st.subheader("Steakholder")
+
+counts_Ziel = df["Zielgruppe"].value_counts()
+
+fig4, ax4 = plt.subplots(figsize=(10, 6))
+ax4.bar(counts_Ziel.index, counts_Ziel.values, color="#0A3D91")
+#ax4.set_title("Personen pro Zielgruppe")
+plt.xticks(rotation=45, ha="right")
+st.pyplot(fig4)
+
+
+
+
+# =========================================================
+# 4) RING: Cluster
+# =========================================================
 st.subheader("EUt+/h_da Clusters")
 
 # Cluster zählen
 cluster_counts = df["Cluster"].value_counts()
 
 # Donut-Chart erstellen
-fig_cluster, ax = plt.subplots(figsize=(2, 2))
+fig_cluster, ax = plt.subplots(figsize=(7, 7))
 
 # Donut zeichnen (ohne Prozent)
 wedges, texts = ax.pie(
@@ -115,9 +151,10 @@ ax.legend(
     [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
     title="Cluster & Teilnehmende",
     loc="center left",
-    bbox_to_anchor=(1, 0.5),
-    fontsize=6,
-    title_fontsize=7 
+    bbox_to_anchor=(1, 0.5)
 )
 
 st.pyplot(fig_cluster)
+
+
+
