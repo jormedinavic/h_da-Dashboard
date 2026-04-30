@@ -28,13 +28,7 @@ with col2:
     ax6.axis("off")
     st.pyplot(fig6)
 
-with col3:
-    st.subheader("Zielgruppen")
-    zielgruppen_count = df["Zielgruppe"].nunique()
-    fig7, ax7 = plt.subplots(figsize=(4,3))
-    ax7.text(0.5, 0.5, f"{zielgruppen_count:,}", fontsize=50, ha='center', va='center', color="#0A3D91")
-    ax7.axis("off")
-    st.pyplot(fig7)
+
 
 # =========================================================
 # ROW 2 — PIE CHARTS (3 Spalten)
@@ -59,14 +53,7 @@ with p2:
     ax2.axis("equal")
     st.pyplot(fig2)
 
-with p3:
-    st.subheader("h_da Einrichtungen")
-    einr_counts = df["h_da Einrichtung"].value_counts()
-    fig3, ax3 = plt.subplots(figsize=(5,5))
-    ax3.pie(einr_counts, labels=einr_counts.index, autopct="%1.1f%%", startangle=90,
-            colors=["#0A3D91", "#6EC6FF"])
-    ax3.axis("equal")
-    st.pyplot(fig3)
+
 
 # =========================================================
 # ROW 3 — BALKEN (3 Spalten)
@@ -74,7 +61,7 @@ with p3:
 b1, b2, b3 = st.columns(3)
 
 with b1:
-    st.subheader("Einrichtungen (>= 3)")
+    st.subheader("Einrichtungen h_da")
     counts_Einrichtung = df["h_da Einrichtung"].value_counts()
     counts_2 = counts_Einrichtung[counts_Einrichtung >= 3].sort_values(ascending=True)
     fig4, ax4 = plt.subplots(figsize=(5,5))
