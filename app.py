@@ -63,14 +63,26 @@ with b1:
     fig4, ax4 = plt.subplots(figsize=(3.0, 2.4), dpi=60)
     ax4.barh(counts_2.index, counts_2.values, color="#6EC6FF")
     ax4.set_xlabel("Anzahl Personen")
+    ax4.tick_params(axis='y', labelsize=7)
+    ax4.tick_params(axis='x', labelsize=7)
+    
     st.pyplot(fig4, use_container_width=False)
+
+
+
+
+
+
 
 with b2:
     st.subheader("Stakeholder")
     counts_Ziel = df["Zielgruppe"].value_counts()
     fig5b, ax5b = plt.subplots(figsize=(3.0, 2.4), dpi=60)
     ax5b.bar(counts_Ziel.index, counts_Ziel.values, color="#0A3D91")
-    plt.xticks(rotation=45, ha="right")
+    #plt.xticks(rotation=45, ha="right")
+
+    ax5b.tick_params(axis='x', labelsize=7, rotation=45)
+    ax5b.tick_params(axis='y', labelsize=7)
     st.pyplot(fig5b, use_container_width=False)
 
 # =========================================================
