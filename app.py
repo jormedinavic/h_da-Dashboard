@@ -155,12 +155,4 @@ ax.axis("equal")
 
 ax.legend(
     wedges,
-    [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
-    title="Cluster & Teilnehmende",
-    loc="center left",
-    bbox_to_anchor=(1, 0.5),
-    fontsize=8,
-    title_fontsize=9 
-)
-
-st.pyplot(fig_cluster)
+    [f"{cluster}: {count
