@@ -3,6 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+st.set_page_config(layout="wide")
+
+# ============================
+# Matplotlib Schriftgrößen fixen
+# ============================
 plt.rcParams.update({
     "font.size": 12,
     "axes.titlesize": 18,
@@ -10,23 +15,23 @@ plt.rcParams.update({
     "legend.fontsize": 10,
 })
 
-
-st.set_page_config(layout="wide")
-
 # ============================
 # Load Data
 # ============================
 df = pd.read_excel("EUt.xlsx")
 
 # ============================
-# Dashboard Title
+# Dashboard Title (groß & fix)
 # ============================
-st.title("EUt+ / h_da Dashboard")
+st.markdown(
+    "<h1 style='font-size: 48px; font-weight: 700; color:#0A3D91;'>EUt+ / h_da Dashboard</h1>",
+    unsafe_allow_html=True
+)
 
 # ============================
 # KPIs (3 columns)
 # ============================
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
     st.subheader("Gesamtzahl Beteiligte")
@@ -55,22 +60,21 @@ with col3:
 # ============================
 # Accelerate & Gender (2 columns)
 # ============================
-col4, col5 = st.columns(2)
+col4, col5 = st.columns([1, 1])
 
 with col4:
     st.subheader("Accelerate Beteiligung")
     counts = df["Accelerate  Beteiligung"].value_counts()
 
     fig, ax = plt.subplots(figsize=(4,4))
-    wedges, texts, autotexts = ax.pie(
+    wedges, _, autotexts = ax.pie(
         counts,
-        labels=None,  # verhindert Streamlit-Legende
+        labels=None,
         autopct="%1.1f%%",
         startangle=90,
         colors=["#0A3D91", "#6EC6FF"]
     )
-
-    ax.set_aspect("equal")  # wichtig für runde Darstellung
+    ax.set_aspect("equal")
 
     ax.legend(
         wedges,
@@ -78,26 +82,24 @@ with col4:
         title="Antworten",
         loc="center left",
         bbox_to_anchor=(1, 0.5),
-        fontsize=8,
-        title_fontsize=9
+        fontsize=10,
+        title_fontsize=11
     )
 
     st.pyplot(fig)
-
 
 with col5:
     st.subheader("Gender Beteiligung")
     counts_gender = df["Gender"].value_counts()
 
     fig, ax = plt.subplots(figsize=(4,4))
-    wedges, texts, autotexts = ax.pie(
+    wedges, _, autotexts = ax.pie(
         counts_gender,
-        labels=None,  # verhindert Streamlit-Legende
+        labels=None,
         autopct="%1.1f%%",
         startangle=90,
         colors=["#0A3D91", "#6EC6FF"]
     )
-
     ax.set_aspect("equal")
 
     ax.legend(
@@ -106,17 +108,16 @@ with col5:
         title="Gender",
         loc="center left",
         bbox_to_anchor=(1, 0.5),
-        fontsize=8,
-        title_fontsize=9
+        fontsize=10,
+        title_fontsize=11
     )
 
     st.pyplot(fig)
 
-
 # ============================
 # Einrichtung & Zielgruppe (2 columns)
 # ============================
-col6, col7 = st.columns(2)
+col6, col7 = st.columns([1, 1])
 
 with col6:
     st.subheader("Beteiligung pro Einrichtung")
@@ -140,32 +141,26 @@ with col7:
 # ============================
 st.subheader("EUt+/h_da Clusters")
 
-# Cluster zählen
 cluster_counts = df["Cluster"].value_counts()
 
-# Donut-Chart erstellen
-fig_cluster, ax = plt.subplots(figsize=(2, 2))
+fig_cluster, ax = plt.subplots(figsize=(4,4))
 
-# Donut zeichnen (ohne Prozent)
 wedges, texts = ax.pie(
     cluster_counts,
     startangle=90,
     wedgeprops={"width": 0.4}
 )
 
-# Titel
-#ax.set_title("h_da Cluster Beteiligung")
 ax.axis("equal")
 
-# Legende rechts mit absoluten Zahlen
 ax.legend(
     wedges,
     [f"{cluster}: {count}" for cluster, count in cluster_counts.items()],
     title="Cluster & Teilnehmende",
     loc="center left",
     bbox_to_anchor=(1, 0.5),
-    fontsize=6,
-    title_fontsize=7 
+    fontsize=8,
+    title_fontsize=9 
 )
 
 st.pyplot(fig_cluster)
