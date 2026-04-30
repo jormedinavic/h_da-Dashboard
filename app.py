@@ -56,10 +56,7 @@ with col4:
     ax.pie(counts, labels=counts.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
     ax.legend(fontsize=1, loc="upper right", bbox_to_anchor=(1.3, 1))
     # kleine Legende oben rechts entfernen
-    if ax.get_legend():
-       ax.get_legend().remove()
-
-    ax.set_aspect("equal")
+    
     st.pyplot(fig)
 
 with col5:
@@ -69,9 +66,7 @@ with col5:
     ax.pie(counts_gender, labels=counts_gender.index, autopct="%1.1f%%", startangle=90, colors=["#0A3D91", "#6EC6FF"])
     ax.legend(fontsize=1, loc="upper right", bbox_to_anchor=(1.3, 1))
     # kleine Legende oben rechts entfernen
-    if ax.get_legend():
-       ax.get_legend().remove()
-    ax.set_aspect("equal")
+  
     st.pyplot(fig)
 
 # ============================
