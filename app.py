@@ -46,8 +46,8 @@ with k2:
     kpi_box(accelerate_count, "Accelerate Teilnehmende")
 
 with k3:
-    cluster_count = df["Cluster"].nunique()
-    kpi_box(cluster_count, "Anzahl Cluster")
+    zielgruppen_count = df["Zielgruppe"].nunique()
+    kpi_box(zielgruppen_count, "Zielgruppen")
 
 st.markdown("---")
 
@@ -73,10 +73,10 @@ with p2:
     st.pyplot(fig)
 
 with p3:
-    st.subheader("Cluster Donut")
-    cluster_counts = df["Cluster"].value_counts()
+    st.subheader("h_da Einrichtungen")
+    einr_counts = df["h_da Einrichtung"].value_counts()
     fig, ax = plt.subplots(figsize=(4,4))
-    ax.pie(cluster_counts.values, labels=cluster_counts.index, startangle=90, wedgeprops={"width": 0.4})
+    ax.pie(einr_counts.values, labels=einr_counts.index, autopct="%1.1f%%", startangle=90)
     ax.axis("equal")
     st.pyplot(fig)
 
